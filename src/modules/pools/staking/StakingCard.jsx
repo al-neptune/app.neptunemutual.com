@@ -25,6 +25,7 @@ import { t, Trans } from "@lingui/macro";
 import { useRouter } from "next/router";
 import { CardSkeleton } from "@/common/Skeleton/CardSkeleton";
 import { useSortableStats } from "@/src/context/SortableStatsContext";
+import { useTokenDecimals } from "@/src/hooks/useTokenDecimals";
 
 // data from subgraph
 // info from `getInfo` on smart contract
@@ -38,8 +39,12 @@ export const StakingCard = ({ data, tvl, getPriceByAddress }) => {
   });
 
   const rewardTokenAddress = info.rewardToken;
+  const stakingTokenAddress = data.stakingToken;
   const stakingTokenSymbol = data.stakingTokenSymbol;
   const rewardTokenSymbol = data.rewardTokenSymbol;
+
+  const rewardTokenDecimal = useTokenDecimals(rewardTokenAddress);
+  const stakingTokenDecimal = useTokenDecimals(stakingTokenAddress);
 
   const [isStakeModalOpen, setIsStakeModalOpen] = useState(false);
   const [isCollectModalOpen, setIsCollectModalOpen] = useState(false);
@@ -90,7 +95,7 @@ export const StakingCard = ({ data, tvl, getPriceByAddress }) => {
     leftHalf.push({
       title: t`Your Stake`,
       value: formatCurrency(
-        convertFromUnits(stakedAmount),
+        convertFromUnits(stakedAmount, stakingTokenDecimal),
         router.locale,
         stakingTokenSymbol,
         true
@@ -196,7 +201,7 @@ export const StakingCard = ({ data, tvl, getPriceByAddress }) => {
                 title={t`You Earned`}
                 value={
                   formatCurrency(
-                    convertFromUnits(rewardAmount),
+                    convertFromUnits(rewardAmount, rewardTokenDecimal),
                     router.locale,
                     rewardTokenSymbol,
                     true
@@ -204,7 +209,7 @@ export const StakingCard = ({ data, tvl, getPriceByAddress }) => {
                 }
                 tooltip={
                   formatCurrency(
-                    convertFromUnits(rewardAmount),
+                    convertFromUnits(rewardAmount, rewardTokenDecimal),
                     router.locale,
                     rewardTokenSymbol,
                     true

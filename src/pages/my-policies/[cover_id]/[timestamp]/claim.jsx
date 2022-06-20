@@ -55,8 +55,6 @@ export default function ClaimPolicy({ disabled }) {
     return <ComingSoon />;
   }
 
-  console.log({ data });
-
   const title = coverInfo.projectName;
   return (
     <CoverStatsProvider coverKey={coverKey}>
