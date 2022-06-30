@@ -94,5 +94,3 @@ module.exports = [
     values: ["600"],
   },
 ];
-
-("script-src 'self'; connect-src 'self' https://*.neptunemutual.com/ https://rpc-mumbai.maticvigil.com/ https://ipfs.infura.io:5001/ https://kovan.infura.io/ https://ropsten.infura.io/ https://*.binance.org:8545/ https://api.thegraph.com/ https://api.npm.finance; style-src 'self'; upgrade-insecure-requests; frame-ancestors 'none'; default-src 'none'; prefetch-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; img-src 'self' data:; font-src 'self");
